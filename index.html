@@ -21,6 +21,69 @@
             color: white; /* Cor das fontes em branco para contraste */
             cursor: pointer;
         }
+        
+/* Estilo do rodapé */
+.footer {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    color: white;
+}
+
+.footer a {
+    font-weight: 700;
+    color: #a002f5;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: #5a0288; /* Altere a cor ao passar o mouse sobre o link */
+}
+
+        /* Estilo do título "Phrase of the day" */
+        .title {
+            font-size: 50px;
+            font-weight: 700;
+            opacity: 0;
+            transform: translateY(-50px);
+            animation: fadeInUp 1.5s ease-out forwards, fadeOut 1.5s 1.5s forwards;
+        }
+
+        /* Estilo do subtítulo "everyday a new phrase" */
+        .subtitle {
+            font-size: 28px;
+            font-weight: 400;
+            margin-top: 10px;
+            opacity: 0;
+            transform: translateY(-50px);
+            animation: fadeInUp 1.5s ease-out forwards, fadeOut 1.5s 1.5s forwards;
+        }
+
+        /* Animação de fade-in e slide-up */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Animação de fade-out para desaparecer o título e subtítulo */
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+        }
 
         /* Estilo do "Click here" */
         .click-text {
@@ -30,6 +93,21 @@
             cursor: pointer;
             padding: 10px 20px;
             border-radius: 8px;
+            opacity: 0; /* Começa invisível */
+            transform: scale(0.5); /* Começa pequeno */
+            animation: fadeInScaleUp 1s 3s forwards; /* Animação após o título e subtítulo */
+        }
+
+        /* Animação de fade-in e scale-up para "Click here" */
+        @keyframes fadeInScaleUp {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         /* Removendo o efeito de hover (quadrado branco) */
@@ -103,6 +181,10 @@
     </style>
 </head>
 <body>
+    <!-- Título e subtítulo com animação -->
+    <div class="title">Phrase of the day</div>
+    <div class="subtitle">everyday a new phrase</div>
+
     <div class="click-text" id="clickText" onclick="showMessage()">
         Click here
     </div>
@@ -110,7 +192,10 @@
     <div id="messages">
         <!-- As frases motivacionais vão aparecer aqui -->
     </div>
-
+    
+    <div class="footer">
+        <p>Created by <a href="https://www.seulink.com" target="_blank"; text-decoration: none;">Victor</a></p>
+    </div>
     <script>
         const messages = [
             "Never",
@@ -154,8 +239,10 @@
                         } else {
                             const clickAgainText = document.createElement('div');
                             clickAgainText.classList.add('click-text-again');
-                            clickAgainText.textContent = 'Click here again';
+                            clickAgainText.textContent = 'Click here';
                             clickAgainText.onclick = () => {
+                                // Reseta o índice das mensagens
+                                messageIndex = 0;
                                 // Esconde o "Click here again" ao clicar
                                 clickAgainText.style.display = 'none';
                                 showMessage(); // Reinicia o ciclo de frases
